@@ -12,25 +12,22 @@ import com.example.app.R
 import com.example.core.utils.dp2Px
 import java.util.Random
 
-class CodeView: AppCompatTextView{
+class CodeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null): AppCompatTextView(context, attrs){
 
-    constructor(context: Context):this(context, null)
-
-    constructor(context: Context, attrs: AttributeSet?):super(context, attrs){
+    init{
         setTextSize(COMPLEX_UNIT_SP, 18f);
         gravity = Gravity.CENTER;
         setBackgroundColor(getContext().getColor(R.color.colorPrimary));
         setTextColor(Color.WHITE);
-
-        paint.isAntiAlias = true;
-        paint.style = Paint.Style.STROKE;
-        paint.color = getContext().getColor(R.color.colorAccent);
-        paint.strokeWidth = dp2Px(6f);
-
         updateCode();
     }
 
-    val paint = Paint()
+    private val paint = Paint().apply {
+        isAntiAlias = true;
+        style = Paint.Style.STROKE;
+        color = context.getColor(R.color.colorAccent);
+        strokeWidth = 6f.dp2Px();
+    }
     private val codeList = arrayOf(
             "kotlin",
             "android",

@@ -40,7 +40,21 @@ class MainActivity: AppCompatActivity(), View.OnClickListener{
         val password = et_password.text.toString()
         val code = et_code.text.toString()
         val user = User(username, password, code)
-        if(verify(user)){
+        //内部函数 可以访问外部属性
+         fun verify(): Boolean{
+
+            if(user.username?.length ?: 0 < 4){
+                Utils.toast("用户名不合法")
+                return false
+            }
+
+            if(user.password?.length ?: 0 < 4){
+                Utils.toast("用户名不合法")
+                return false
+            }
+            return true
+        }
+        if(verify()){
             startActivity(Intent(this, LessonActivity::class.java))
         }
     }
@@ -54,18 +68,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    private fun verify(user: User): Boolean{
-        if(user.username != null && user.username!!.length < 4){
-            Utils.toast("用户名不合法")
-            return false
-        }
 
-        if(user.password != null && user.password!!.length < 4){
-            Utils.toast("用户名不合法")
-            return false
-        }
-        return true
-    }
 
 
 }
